@@ -12,14 +12,13 @@
                 Console.WriteLine("Use the numbers to choose an option below.");
                 Console.WriteLine("1. Get price based on your age.");
                 Console.WriteLine("2. Get price for a group/party.");
-                Console.WriteLine("3. Choice number 3.");
+                Console.WriteLine("3. Repeat a phrase or word.");
                 Console.WriteLine("0. Exit.");
                 Console.WriteLine("*********************************");
                 Console.WriteLine("\n Enter your choice: ");
                 Console.Write("\n> ");
 
-                int input;
-                bool mainMenuChoiceParseSuccess = int.TryParse(Console.ReadLine(), out input);
+                bool mainMenuChoiceParseSuccess = int.TryParse(Console.ReadLine(), out int input);
 
                 if (mainMenuChoiceParseSuccess)
                 {
@@ -133,16 +132,32 @@
                             break;
                         case 3:
                             Console.WriteLine("\n*********************************");
-                            Console.ForegroundColor = ConsoleColor.Magenta;
-                            Console.WriteLine("Menu option 3 takes your here.");
-                            Console.ResetColor();
+                            Console.WriteLine("Repeat a phrase 10 times");
+                            Console.WriteLine("Enter a phrase that should be printed 10 times below: ");
+                            Console.Write("\n> ");
+
+                            string? stringInput = Console.ReadLine();
+
+                            if (string.IsNullOrWhiteSpace(stringInput))
+                            {
+                                Console.WriteLine("Please enter a proper sentence or word");
+                            } else
+                            {
+                                for (int i = 1; i <= 10; i++)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.Write($"{i}. {stringInput}, ");
+                                    if (i == 10)
+                                        Console.Write($"{i}. {stringInput}");
+                                    Console.ResetColor();
+                                }
+                            }                            
                             break;
                         default:
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("\nNo command matches that input, try agan!");
                             Console.ResetColor();
                             break;
-
                     }
                 }
                 else
