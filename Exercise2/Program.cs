@@ -11,7 +11,7 @@
                 Console.WriteLine("\n*********************************");
                 Console.WriteLine("Use the numbers to choose an option below.");
                 Console.WriteLine("1. Get price based on your age.");
-                Console.WriteLine("2. Choice number 2.");
+                Console.WriteLine("2. Get price for a group/party.");
                 Console.WriteLine("3. Choice number 3.");
                 Console.WriteLine("0. Exit.");
                 Console.WriteLine("*********************************");
@@ -37,22 +37,25 @@
                             Console.WriteLine("Enter your age below: ");
                             Console.Write("> ");
 
-                            int ageInput;
-                            bool ageParseSuccess = int.TryParse(Console.ReadLine(), out ageInput);
+
+                            bool ageParseSuccess = int.TryParse(Console.ReadLine(), out int ageInput);
 
                             if(ageParseSuccess)
                             {
+
                                 if(ageInput < 20)
                                 {
                                     Console.ForegroundColor = ConsoleColor.Cyan;
                                     Console.WriteLine("Ungdomspris: 80kr");
                                     Console.ResetColor();
-                                } else if (ageInput > 64)
+                                }
+                                else if (ageInput > 64)
                                 {
                                     Console.ForegroundColor = ConsoleColor.Cyan;
                                     Console.WriteLine("Pensionärspris: 90kr");
                                     Console.ResetColor();
-                                } else
+                                }
+                                else
                                 {
                                     Console.ForegroundColor = ConsoleColor.Cyan;
                                     Console.WriteLine("Standardpris: 120kr");
@@ -71,9 +74,62 @@
                             break;
                         case 2:
                             Console.WriteLine("\n*********************************");
-                            Console.ForegroundColor = ConsoleColor.Magenta;
-                            Console.WriteLine("Menu option 2 takes your here.");
-                            Console.ResetColor();
+                            Console.WriteLine("Get price for a group or party");
+                            Console.WriteLine("Enter the size of the group: ");
+                            Console.Write("> ");
+
+                            bool groupSizeParseSuccess = int.TryParse(Console.ReadLine(), out int groupSizeInput);
+
+                            if(groupSizeParseSuccess)
+                            {
+                                int totalPrizeForGroup = 0;                                
+
+                                Console.WriteLine($"You've chosen a group size of: {groupSizeInput}");
+                                Console.WriteLine("Now enter the age of each individual: ");
+
+                                for (int i = 1; i <= groupSizeInput; i++)
+                                {
+                                    Console.Write($"Person nr {i} age >");
+                                    bool groupAgeParseSuccess = int.TryParse(Console.ReadLine(), out int groupAgeInput);
+
+                                    if (groupAgeParseSuccess)
+                                    {
+
+                                        if (groupAgeInput < 20)
+                                        {
+                                            totalPrizeForGroup += 80;
+                                        }
+                                        else if (groupAgeInput > 64)
+                                        {
+                                            totalPrizeForGroup += 90;
+                                        }
+                                        else
+                                        {
+                                            totalPrizeForGroup += 120;                                            
+                                        }
+                                        
+                                    }
+                                    else
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine("\nCould not understand the command, try again using only numbers!");
+                                        Console.ResetColor();
+                                    }                                    
+                                }
+
+                                Console.ForegroundColor = ConsoleColor.Cyan;
+                                Console.WriteLine($"The total prize for a group of {groupSizeInput} will be {totalPrizeForGroup} kr");
+                                Console.ResetColor();
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("\nCould not understand the command, try again using only numbers!");
+                                Console.ResetColor();
+                            }
+
+                            
+
                             break;
                         case 3:
                             Console.WriteLine("\n*********************************");
@@ -95,11 +151,6 @@
                     Console.WriteLine("\nCould not understand the command, try again using only numbers!");
                     Console.ResetColor();
                 }
-
-               
-                
-
-                
             }
             while (running);
         }
