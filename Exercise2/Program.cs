@@ -42,14 +42,25 @@
 
                             if(ageParseSuccess)
                             {
-
-                                if(ageInput < 20)
+                                if (ageInput <= 5)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Cyan;
+                                    Console.WriteLine("Free!");
+                                    Console.ResetColor();
+                                }
+                                else if(ageInput <= 20)
                                 {
                                     Console.ForegroundColor = ConsoleColor.Cyan;
                                     Console.WriteLine("Ungdomspris: 80kr");
                                     Console.ResetColor();
+                                }                                
+                                else if (ageInput >= 100)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Cyan;
+                                    Console.WriteLine("Free!");
+                                    Console.ResetColor();
                                 }
-                                else if (ageInput > 64)
+                                else if (ageInput >= 64)
                                 {
                                     Console.ForegroundColor = ConsoleColor.Cyan;
                                     Console.WriteLine("Pensionärspris: 90kr");
@@ -64,11 +75,8 @@
                             } 
                             else
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("\nCould not understand the command, try again using only numbers!");
-                                Console.ResetColor();
+                                PrintError("No command matches that input, try agan!");
                             }
-
 
                             Console.WriteLine("*********************************");
                             break;
@@ -89,17 +97,24 @@
 
                                 for (int i = 1; i <= groupSizeInput; i++)
                                 {
-                                    Console.Write($"Person nr {i} age >");
+                                    Console.Write($"Person nr {i} age > ");
                                     bool groupAgeParseSuccess = int.TryParse(Console.ReadLine(), out int groupAgeInput);
 
                                     if (groupAgeParseSuccess)
                                     {
-
-                                        if (groupAgeInput < 20)
+                                        if (groupAgeInput <= 5)
+                                        {
+                                            totalPrizeForGroup += 0;
+                                        }
+                                        else if (groupAgeInput <= 20)
                                         {
                                             totalPrizeForGroup += 80;
                                         }
-                                        else if (groupAgeInput > 64)
+                                        else if(groupAgeInput >= 100)
+                                        {
+                                            totalPrizeForGroup += 0;
+                                        }
+                                        else if (groupAgeInput >= 64)
                                         {
                                             totalPrizeForGroup += 90;
                                         }
@@ -111,9 +126,7 @@
                                     }
                                     else
                                     {
-                                        Console.ForegroundColor = ConsoleColor.Red;
-                                        Console.WriteLine("\nCould not understand the command, try again using only numbers!");
-                                        Console.ResetColor();
+                                        PrintError("No command matches that input, try agan!");
                                     }                                    
                                 }
 
@@ -123,9 +136,7 @@
                             }
                             else
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("\nCould not understand the command, try again using only numbers!");
-                                Console.ResetColor();
+                                PrintError("No command matches that input, try agan!");
                             }
 
                             
@@ -141,9 +152,7 @@
 
                             if (string.IsNullOrWhiteSpace(stringInput))
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Please enter a proper sentence or word");
-                                Console.ResetColor();
+                                PrintError("Please enter a proper sentence or word");
                             } else
                             {
                                 for (int i = 1; i <= 10; i++)
@@ -166,18 +175,14 @@
 
                             if (string.IsNullOrWhiteSpace(sentenceInput))
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Please enter a proper sentence or word");
-                                Console.ResetColor();
+                                PrintError("Please enter a proper sentence or word");
                             }
                             else
                             {
                                 var splitSentence = sentenceInput.Split(' ', StringSplitOptions.RemoveEmptyEntries); // Splits the string on the "space" character, while also removing any potential empty entries from the resulting array made while splitting multiple spaces.
                                 if (splitSentence.Length < 3)
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine("That sentence is too short, at least 3 words please!");
-                                    Console.ResetColor();
+                                    PrintError("That sentence is too short, at least 3 words please!");
                                 }
                                 else
                                 {
@@ -189,20 +194,23 @@
                             break;
 
                         default:
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("\nNo command matches that input, try agan!");
-                            Console.ResetColor();
+                            PrintError("No command matches that input, try agan!");
                             break;
                     }
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("\nCould not understand the command, try again using only numbers!");
-                    Console.ResetColor();
+                    PrintError("No command matches that input, try agan!");
                 }
             }
             while (running);
+        }
+
+        static void PrintError(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"\n{message}");
+            Console.ResetColor();
         }
     }
 }
