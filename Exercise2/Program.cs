@@ -13,6 +13,7 @@
                 Console.WriteLine("1. Get price based on your age.");
                 Console.WriteLine("2. Get price for a group/party.");
                 Console.WriteLine("3. Repeat a phrase or word.");
+                Console.WriteLine("4. Get the third word of a sentence.");
                 Console.WriteLine("0. Exit.");
                 Console.WriteLine("*********************************");
                 Console.WriteLine("\n Enter your choice: ");
@@ -140,7 +141,9 @@
 
                             if (string.IsNullOrWhiteSpace(stringInput))
                             {
+                                Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("Please enter a proper sentence or word");
+                                Console.ResetColor();
                             } else
                             {
                                 for (int i = 1; i <= 10; i++)
@@ -153,6 +156,38 @@
                                 }
                             }                            
                             break;
+                        case 4:
+                            Console.WriteLine("\n*********************************");
+                            Console.WriteLine("Splitting a string and returning the third word.");
+                            Console.WriteLine("Enter a sentence below to split, with a minimum of 3 words:");
+                            Console.Write("\n> ");
+
+                            string? sentenceInput = Console.ReadLine();
+
+                            if (string.IsNullOrWhiteSpace(sentenceInput))
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Please enter a proper sentence or word");
+                                Console.ResetColor();
+                            }
+                            else
+                            {
+                                var splitSentence = sentenceInput.Split(' ', StringSplitOptions.RemoveEmptyEntries); // Splits the string on the "space" character, while also removing any potential empty entries from the resulting array made while splitting multiple spaces.
+                                if (splitSentence.Length < 3)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("That sentence is too short, at least 3 words please!");
+                                    Console.ResetColor();
+                                }
+                                else
+                                {
+                                    Console.WriteLine(splitSentence[2]);
+                                }
+
+
+                            }
+                            break;
+
                         default:
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("\nNo command matches that input, try agan!");
