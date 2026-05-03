@@ -42,7 +42,7 @@
 
                             if(ageParseSuccess)
                             {
-                                if (ageInput <= 5)
+                                if (ageInput <= 5 || ageInput >= 100)
                                 {
                                     Console.ForegroundColor = ConsoleColor.Cyan;
                                     Console.WriteLine("Free!");
@@ -52,12 +52,6 @@
                                 {
                                     Console.ForegroundColor = ConsoleColor.Cyan;
                                     Console.WriteLine("Ungdomspris: 80kr");
-                                    Console.ResetColor();
-                                }                                
-                                else if (ageInput >= 100)
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Cyan;
-                                    Console.WriteLine("Free!");
                                     Console.ResetColor();
                                 }
                                 else if (ageInput >= 64)
@@ -102,17 +96,13 @@
 
                                     if (groupAgeParseSuccess)
                                     {
-                                        if (groupAgeInput <= 5)
+                                        if (groupAgeInput <= 5 || groupAgeInput >= 100)
                                         {
                                             totalPrizeForGroup += 0;
                                         }
                                         else if (groupAgeInput <= 20)
                                         {
                                             totalPrizeForGroup += 80;
-                                        }
-                                        else if(groupAgeInput >= 100)
-                                        {
-                                            totalPrizeForGroup += 0;
                                         }
                                         else if (groupAgeInput >= 64)
                                         {
@@ -188,8 +178,6 @@
                                 {
                                     Console.WriteLine(splitSentence[2]);
                                 }
-
-
                             }
                             break;
 
